@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-re(yoqt!ds7#jqjzz2h4!dl5l%+ax3pf4b2r+z6b1oe8=&1$9@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ["10.0.2.2", "127.0.0.1", "192.168.1.11"]
+ALLOWED_HOSTS = ["127.0.0.1", "https://studybudyv1.herokuapp.com/"]
 
 
 # Application definition
@@ -82,17 +82,27 @@ TEMPLATES = [
 WSGI_APPLICATION = "StudyBudy.wsgi.application"
 
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "studybudy",
+#         "USER": "root",
+#         "PASSWORD": "iisdammam",
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "studybudy",
-        "USER": "root",
-        "PASSWORD": "iisdammam",
-        "HOST": "localhost",
+        "NAME": "heroku_122ccc74e2391cf",
+        "USER": "be5b5c9ff9c18a",
+        "PASSWORD": "8cd3cbdd",
+        "HOST": "us-cdbr-east-04.cleardb.com",
         "PORT": "",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
