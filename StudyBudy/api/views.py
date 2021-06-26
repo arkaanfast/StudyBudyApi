@@ -49,14 +49,12 @@ def user_registration(request):
             )
     except Exception:
         return Response(
-            data={"response": "already registered"},
+            data={"response": "Email or Usn or phone number already Exists"},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
 
 # Sign in :-/api/sign_in/
-
-
 @api_view(["POST"])
 def user_sign_in(request):
     data = {}
@@ -92,3 +90,34 @@ def user_sign_in(request):
         return Response(
             data={"response": "Not Registerd"}, status=status.HTTP_404_NOT_FOUND
         )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def post_student_queries(request):
+    question = request.data["question"]
+    # TODO: check if previously aaksed query exits from A common Database for all students
+    try:
+        student_query = StudentQueries.objects.get(question=question)
+        query_serailizer = StudentQueriesSerializer(student_query)
+        return Response(data=query_serailizer.data, status=status.HTTP_200_OK)
+    except StudentQueries.DoesNotExist:
+        # Post the queries and answers if the query does not exits
+        student_query = StudentQueries(
+            student_id=request.user, question=question, answer="BLAH BLAH FOR NOW"
+        )
+        student_query.save()
+        # Create a studentQuery object for the student after getting the answers for the question.
+        query_serailizer = StudentQueriesSerializer(student_query)
+        return Response(data=query_serailizer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_student_queries(request):
+    student_query = StudentQueries.objects.filter(student_id=request.user)
+    if len(student_query) == 0:
+        return Response(data={"response": "no queries yet"}, status=status.HTTP_200_OK)
+    else:
+        query_serailizer = StudentQueriesSerializer(student_query, many=True)
+        return Response(data=query_serailizer.data, status=status.HTTP_200_OK)

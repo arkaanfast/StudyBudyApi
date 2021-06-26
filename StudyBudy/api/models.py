@@ -70,8 +70,16 @@ class StudentQueries(models.Model):
     student_id = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.TextField()
     answer = models.TextField()
-    data = models.DateField()
-    time = models.TimeField()
+    date = models.DateField(auto_now=True)
+    time = models.TimeField(auto_now=True)
 
     def __str__(self):
-        return self.student_id.username
+        return self.student_id.username + " Question :- " + self.question
+
+
+class CommonQuestions(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+
+    def __str__(self):
+        return self.question
