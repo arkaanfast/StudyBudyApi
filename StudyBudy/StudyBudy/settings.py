@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +27,7 @@ SECRET_KEY = "django-insecure-re(yoqt!ds7#jqjzz2h4!dl5l%+ax3pf4b2r+z6b1oe8=&1$9@
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["studybudyv1.herokuapp.com", "127.0.0.1", ]
+ALLOWED_HOSTS = ["studybudyv1.herokuapp.com", "127.0.0.1", "10.0.2.2", "192.168.1.11"]
 
 
 # Application definition
@@ -59,7 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "StudyBudy.urls"
@@ -83,27 +84,27 @@ TEMPLATES = [
 WSGI_APPLICATION = "StudyBudy.wsgi.application"
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "studybudy",
-#         "USER": "root",
-#         "PASSWORD": "iisdammam",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "heroku_122ccc74e2391cf",
-        "USER": "be5b5c9ff9c18a",
-        "PASSWORD": "8cd3cbdd",
-        "HOST": "us-cdbr-east-04.cleardb.com",
+        "NAME": "studybudy",
+        "USER": "root",
+        "PASSWORD": "iisdammam",
+        "HOST": "localhost",
         "PORT": "",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "heroku_122ccc74e2391cf",
+#         "USER": "be5b5c9ff9c18a",
+#         "PASSWORD": "8cd3cbdd",
+#         "HOST": "us-cdbr-east-04.cleardb.com",
+#         "PORT": "",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

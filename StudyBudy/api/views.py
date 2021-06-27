@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import *
 from .serializers import *
+from .apps import ApiConfig
 
 # Register url:-/api/register/
 
@@ -91,12 +92,16 @@ def user_sign_in(request):
             data={"response": "Not Registerd"}, status=status.HTTP_404_NOT_FOUND
         )
 
+
 # Post the question and get the answer /api/student_queries
+# TODO: check if previously asked query exits from A common Database for all students
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def post_student_queries(request):
     question = request.data["question"]
-    # TODO: check if previously aaksed query exits from A common Database for all students
+    passage = ApiConfig.jsonData[question.lower()]
+    result = ApiConfig.predictor.predict(passage=passage, question=question)
+    answer = result["best_span_str"]
     try:
         student_query = StudentQueries.objects.get(question=question)
         query_serailizer = StudentQueriesSerializer(student_query)
@@ -104,12 +109,13 @@ def post_student_queries(request):
     except StudentQueries.DoesNotExist:
         # Post the queries and answers if the query does not exits
         student_query = StudentQueries(
-            student_id=request.user, question=question, answer="BLAH BLAH FOR NOW"
+            student_id=request.user, question=question, answer=answer
         )
         student_query.save()
         # Create a studentQuery object for the student after getting the answers for the question.
         query_serailizer = StudentQueriesSerializer(student_query)
         return Response(data=query_serailizer.data, status=status.HTTP_200_OK)
+
 
 # Get list of a student query /api/student_queries_list
 @api_view(["GET"])
