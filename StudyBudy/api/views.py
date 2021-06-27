@@ -91,7 +91,7 @@ def user_sign_in(request):
             data={"response": "Not Registerd"}, status=status.HTTP_404_NOT_FOUND
         )
 
-
+# Post the question and get the answer /api/student_queries
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def post_student_queries(request):
@@ -111,7 +111,7 @@ def post_student_queries(request):
         query_serailizer = StudentQueriesSerializer(student_query)
         return Response(data=query_serailizer.data, status=status.HTTP_200_OK)
 
-
+# Get list of a student query /api/student_queries_list
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_student_queries(request):
