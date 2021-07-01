@@ -139,9 +139,10 @@ def post_student_queries(request):
         else:
             return Response(
                 data={
-                    "error": "The answer for the question you asked does not exist now we are still improving our algo"
+                    "question": question,
+                    "answer": "The answer for the question you asked does not exist now we are still improving our algo",
                 },
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_200_OK,
             )
 
 

@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 from allennlp.predictors.predictor import Predictor
+
 import json
 
 
@@ -13,3 +14,4 @@ class ApiConfig(AppConfig):
     # Json Loader
     data = open("/home/arkaanfast/StudyBudyAPI/StudyBudy/api/data.json")
     jsonData = json.load(data)
+    questions = list(jsonData.keys())
