@@ -152,7 +152,9 @@ def post_student_queries(request):
 def get_student_queries(request):
     student_query = StudentQueries.objects.filter(student_id=request.user)
     if len(student_query) == 0:
-        return Response(data={"response": "no queries yet"}, status=status.HTTP_200_OK)
+        return Response(
+            data={"response": "no queries yet"}, status=status.HTTP_204_NO_CONTENT
+        )
     else:
         query_serailizer = StudentQueriesSerializer(student_query, many=True)
         return Response(data=query_serailizer.data, status=status.HTTP_200_OK)

@@ -20,8 +20,6 @@ def get_answer(question):
         Y_vec = vectorizer.transform([question.lower()[0 : len(question) - 1].strip()])
         Y_tfidf = tfidf.fit_transform(Y_vec)
         angle = np.rad2deg(np.arccos(max(cosine_similarity(Y_tfidf, X_tfidf)[0])))
-        print(X_vec)
-        print(angle)
         if angle > 60:
             return None
         else:
